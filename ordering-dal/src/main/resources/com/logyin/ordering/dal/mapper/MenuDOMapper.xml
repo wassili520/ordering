@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logyin.ordering.dal.mapper.MenuDOMapper" >
+  <resultMap id="BaseResultMap" type="com.logyin.ordering.dal.model.MenuDO" >
+    <id column="MENU_ID" property="menuId" jdbcType="INTEGER" />
+    <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+    <result column="MENU_IMAGE_URL" property="menuImageUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MENU_ID, MENU_NAME, MENU_IMAGE_URL
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from MENU
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from MENU
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.logyin.ordering.dal.model.MenuDO" >
+    insert into MENU (MENU_ID, MENU_NAME, MENU_IMAGE_URL
+      )
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuImageUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.logyin.ordering.dal.model.MenuDO" >
+    insert into MENU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="menuName != null" >
+        MENU_NAME,
+      </if>
+      <if test="menuImageUrl != null" >
+        MENU_IMAGE_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuImageUrl != null" >
+        #{menuImageUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.logyin.ordering.dal.model.MenuDO" >
+    update MENU
+    <set >
+      <if test="menuName != null" >
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuImageUrl != null" >
+        MENU_IMAGE_URL = #{menuImageUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.logyin.ordering.dal.model.MenuDO" >
+    update MENU
+    set MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      MENU_IMAGE_URL = #{menuImageUrl,jdbcType=VARCHAR}
+    where MENU_ID = #{menuId,jdbcType=INTEGER}
+  </update>
+</mapper>
